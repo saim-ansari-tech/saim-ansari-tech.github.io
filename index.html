@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muhammad Saim Ansari — AI/ML Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #050A0F;
+    --bg2:       #0A1520;
+    --bg3:       #0F1F2E;
+    --cyan:      #00D4FF;
+    --cyan-dim:  #0099BB;
+    --green:     #00FF88;
+    --orange:    #FF6B35;
+    --text:      #E2EEF5;
+    --muted:     #6A8FA8;
+    --border:    #112233;
+    --card:      #0D1B2A;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'JetBrains Mono', monospace;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* CUSTOM CURSOR */
+  .cursor {
+    position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999;
+    width: 12px; height: 12px;
+    background: var(--cyan);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s, background 0.2s;
+    mix-blend-mode: screen;
+  }
+  .cursor-ring {
+    position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9998;
+    width: 36px; height: 36px;
+    border: 1px solid var(--cyan);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: transform 0.15s ease, width 0.2s, height 0.2s, opacity 0.2s;
+    opacity: 0.5;
+  }
+
+  /* GRID BACKGROUND */
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: 0;
+    background-image:
+      linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(5,10,15,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: 1.1rem;
+    color: var(--cyan);
+    letter-spacing: 0.05em;
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    color: var(--muted); text-decoration: none; font-size: 0.78rem;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--cyan); }
+
+  /* SECTIONS */
+  section { position: relative; z-index: 1; }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 0 4rem;
+  }
+  .hero-inner { max-width: 900px; }
+  .hero-tag {
+    display: inline-block;
+    font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--cyan); border: 1px solid var(--cyan-dim);
+    padding: 0.3rem 0.8rem; border-radius: 2px; margin-bottom: 2rem;
+    opacity: 0; animation: fadeUp 0.6s 0.2s forwards;
+  }
+  .hero-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: clamp(3rem, 7vw, 6rem);
+    line-height: 1.05; color: var(--text);
+    opacity: 0; animation: fadeUp 0.6s 0.4s forwards;
+  }
+  .hero-name span { color: var(--cyan); }
+  .hero-subtitle {
+    font-size: clamp(1rem, 2vw, 1.3rem); color: var(--muted);
+    margin: 1.5rem 0 2.5rem;
+    opacity: 0; animation: fadeUp 0.6s 0.6s forwards;
+  }
+  .hero-subtitle .typed-text { color: var(--green); }
+  .hero-cta {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    opacity: 0; animation: fadeUp 0.6s 0.8s forwards;
+  }
+  .btn {
+    padding: 0.75rem 1.8rem; font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase;
+    text-decoration: none; border-radius: 3px; cursor: none;
+    transition: all 0.25s;
+  }
+  .btn-primary {
+    background: var(--cyan); color: var(--bg);
+    font-weight: 500; border: 1px solid var(--cyan);
+  }
+  .btn-primary:hover { background: transparent; color: var(--cyan); }
+  .btn-outline {
+    background: transparent; color: var(--muted);
+    border: 1px solid var(--border);
+  }
+  .btn-outline:hover { border-color: var(--cyan); color: var(--cyan); }
+
+  .cert-btn {
+    display: inline-block;
+    padding: 0.55rem 0.95rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    border: 1px solid var(--cyan);
+    border-radius: 3px;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s, transform 0.2s;
+  }
+  .cert-btn:hover {
+    background: var(--cyan);
+    color: var(--bg);
+    transform: translateY(-1px);
+  }
+  .cert-actions {
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+  }
+
+  .hero-scroll {
+    position: absolute; bottom: 2.5rem; left: 4rem;
+    display: flex; align-items: center; gap: 0.8rem;
+    color: var(--muted); font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;
+    opacity: 0; animation: fadeUp 0.6s 1.2s forwards;
+  }
+  .scroll-line {
+    width: 40px; height: 1px; background: var(--muted);
+    animation: scrollLine 2s infinite;
+  }
+  @keyframes scrollLine {
+    0%, 100% { width: 40px; opacity: 1; }
+    50% { width: 20px; opacity: 0.3; }
+  }
+
+  /* ABOUT */
+  #about {
+    padding: 8rem 4rem;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 6rem;
+    align-items: center;
+  }
+  .about-label {
+    font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--cyan); margin-bottom: 1rem;
+  }
+  .about-heading {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.5rem; font-weight: 800; line-height: 1.2;
+    margin-bottom: 1.5rem;
+  }
+  .about-text {
+    color: var(--muted); line-height: 1.9; font-size: 0.88rem;
+    margin-bottom: 1rem;
+  }
+  .about-stats {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+  .stat {
+    padding: 1.2rem; border: 1px solid var(--border);
+    background: var(--card); border-radius: 4px; text-align: center;
+    transition: border-color 0.2s;
+  }
+  .stat:hover { border-color: var(--cyan); }
+  .stat-num {
+    font-family: 'Syne', sans-serif; font-size: 2rem;
+    font-weight: 800; color: var(--cyan);
+  }
+  .stat-label { font-size: 0.7rem; color: var(--muted); margin-top: 0.3rem; text-transform: uppercase; letter-spacing: 0.1em; }
+
+  .about-code {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 6px; overflow: hidden;
+  }
+  .code-header {
+    display: flex; align-items: center; gap: 0.5rem;
+    padding: 0.8rem 1rem; background: var(--bg3);
+    border-bottom: 1px solid var(--border);
+  }
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot-r { background: #FF5F57; }
+  .dot-y { background: #FEBC2E; }
+  .dot-g { background: #28C840; }
+  .code-filename { font-size: 0.72rem; color: var(--muted); margin-left: 0.5rem; }
+  .code-body { padding: 1.5rem; font-size: 0.78rem; line-height: 1.9; }
+  .c-keyword { color: #CC99FF; }
+  .c-func { color: var(--cyan); }
+  .c-str { color: var(--green); }
+  .c-comment { color: #4A6A7A; }
+  .c-num { color: var(--orange); }
+
+  /* SKILLS */
+  #skills { padding: 8rem 4rem; }
+  .section-header { text-align: center; margin-bottom: 4rem; }
+  .section-label {
+    font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--cyan); margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.5rem; font-weight: 800;
+  }
+  .skills-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;
+  }
+  .skill-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 6px; padding: 1.8rem;
+    transition: border-color 0.25s, transform 0.25s;
+  }
+  .skill-card:hover { border-color: var(--cyan); transform: translateY(-4px); }
+  .skill-icon { font-size: 1.8rem; margin-bottom: 1rem; }
+  .skill-title {
+    font-family: 'Syne', sans-serif; font-weight: 700;
+    font-size: 1rem; margin-bottom: 1rem; color: var(--cyan);
+  }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .tag {
+    font-size: 0.7rem; padding: 0.25rem 0.6rem;
+    background: var(--bg3); border: 1px solid var(--border);
+    border-radius: 2px; color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  /* PROJECTS */
+  #projects { padding: 8rem 4rem; }
+  #certificates { padding: 8rem 4rem; }
+  .projects-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  .project-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 6px; padding: 2rem; position: relative; overflow: hidden;
+    transition: border-color 0.25s, transform 0.25s;
+  }
+  .project-card:hover { border-color: var(--cyan); transform: translateY(-4px); }
+  .project-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--cyan), transparent);
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .project-card:hover::before { opacity: 1; }
+  .project-image {
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+    background: var(--bg3);
+    border-radius: 4px;
+    margin-bottom: 1rem;
+  }
+  .project-images { display: grid; gap: 0.8rem; margin-bottom: 1rem; }
+  .gallery-label {
+    font-size: 0.7rem; color: var(--muted); margin-bottom: 0.4rem; display: block;
+  }
+  .image-gallery {
+    display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem;
+  }
+  .gallery-thumb {
+    height: 80px; width: auto; object-fit: cover;
+    border-radius: 4px; cursor: pointer;
+  }
+  .project-number {
+    font-size: 0.7rem; color: var(--cyan); letter-spacing: 0.2em;
+    margin-bottom: 0.8rem;
+  }
+  .project-title {
+    font-family: 'Syne', sans-serif; font-weight: 700;
+    font-size: 1.2rem; margin-bottom: 0.8rem;
+  }
+  .project-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.8; margin-bottom: 1.5rem; }
+  .project-meta {
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 0.8rem;
+  }
+  .project-tech { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+  .project-accuracy {
+    font-size: 0.75rem; color: var(--green);
+    border: 1px solid rgba(0,255,136,0.3);
+    padding: 0.2rem 0.6rem; border-radius: 2px;
+  }
+  .project-link {
+    font-size: 0.75rem; color: var(--cyan); text-decoration: none;
+    display: flex; align-items: center; gap: 0.3rem;
+    transition: gap 0.2s;
+  }
+  .project-link:hover { gap: 0.6rem; }
+
+  /* EXPERIENCE */
+  #experience { padding: 8rem 4rem; }
+  .exp-timeline { margin-top: 3rem; position: relative; }
+  .exp-timeline::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 1px; background: var(--border);
+  }
+  .exp-item {
+    padding-left: 2.5rem; padding-bottom: 3rem; position: relative;
+  }
+  .exp-item::before {
+    content: ''; position: absolute; left: -4px; top: 6px;
+    width: 9px; height: 9px; border-radius: 50%;
+    background: var(--cyan); border: 2px solid var(--bg);
+  }
+  .exp-date { font-size: 0.72rem; color: var(--cyan); margin-bottom: 0.5rem; letter-spacing: 0.1em; }
+  .exp-title {
+    font-family: 'Syne', sans-serif; font-weight: 700;
+    font-size: 1.1rem; margin-bottom: 0.3rem;
+  }
+  .exp-company { font-size: 0.82rem; color: var(--muted); margin-bottom: 0.8rem; }
+  .exp-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.8; }
+
+  /* CONTACT */
+  #contact {
+    padding: 8rem 4rem;
+    text-align: center;
+  }
+  .contact-inner { max-width: 600px; margin: 0 auto; }
+  .contact-heading {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800;
+    margin-bottom: 1rem;
+  }
+  .contact-heading span { color: var(--cyan); }
+  .contact-text { color: var(--muted); font-size: 0.88rem; line-height: 1.8; margin-bottom: 3rem; }
+  .contact-links { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; }
+  .contact-link {
+    display: flex; align-items: center; gap: 0.6rem;
+    padding: 0.8rem 1.5rem; border: 1px solid var(--border);
+    border-radius: 4px; color: var(--muted); text-decoration: none;
+    font-size: 0.78rem; transition: all 0.25s;
+  }
+  .contact-link:hover { border-color: var(--cyan); color: var(--cyan); }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 4rem;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.72rem; color: var(--muted);
+    position: relative; z-index: 1;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* GLITCH */
+  .glitch {
+    position: relative;
+  }
+  .glitch::before, .glitch::after {
+    content: attr(data-text);
+    position: absolute; top: 0; left: 0;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: inherit;
+    color: inherit;
+  }
+  .glitch::before {
+    color: var(--cyan); clip: rect(0, 900px, 0, 0);
+    animation: glitch1 3s infinite linear;
+  }
+  .glitch::after {
+    color: var(--orange); clip: rect(0, 900px, 0, 0);
+    animation: glitch2 3s infinite linear;
+  }
+  @keyframes glitch1 {
+    0%, 95%, 100% { clip: rect(0,0,0,0); transform: none; }
+    96% { clip: rect(10px,9999px,20px,0); transform: translateX(-2px); }
+    97% { clip: rect(40px,9999px,50px,0); transform: translateX(2px); }
+    98% { clip: rect(5px,9999px,15px,0); transform: translateX(-1px); }
+  }
+  @keyframes glitch2 {
+    0%, 92%, 100% { clip: rect(0,0,0,0); transform: none; }
+    93% { clip: rect(30px,9999px,40px,0); transform: translateX(3px); }
+    94% { clip: rect(60px,9999px,70px,0); transform: translateX(-2px); }
+    95% { clip: rect(20px,9999px,30px,0); transform: translateX(1px); }
+  }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    #hero, #about, #skills, #projects, #experience, #contact { padding-left: 1.5rem; padding-right: 1.5rem; }
+    #about { grid-template-columns: 1fr; gap: 3rem; }
+    .projects-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+    .hero-scroll { left: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">MSA<span style="color:var(--muted)">.</span>dev</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#hardware">Hardware</a></li>
+    <li><a href="#certificates">Certificates</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">// AI &amp; ML Engineer in Progress</div>
+    <h1 class="hero-name glitch" data-text="Muhammad Saim Ansari">
+      Muhammad <span>Saim</span><br>Ansari
+    </h1>
+    <p class="hero-subtitle">
+      Building intelligent systems &amp; ML pipelines<br>
+      <span class="typed-text" id="typed"></span><span style="color:var(--cyan)">|</span>
+    </p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn btn-primary">View Projects</a>
+      <a href="#contact" class="btn btn-outline">Get In Touch</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    Scroll to explore
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="reveal">
+    <div class="about-label">// 01. About Me</div>
+    <h2 class="about-heading">Building Robots. Now Teaching Them to <span style="color:var(--cyan)">Think.</span></h2>
+    <p class="about-text">I'm a 5th semester BS Robotics and Intelligent Systems student at Bahria University Islamabad, with hands-on experience in hardware engineering, robotics, and a strong shifting focus toward Machine Learning, Deep Learning, and Computer Vision.</p>
+    <p class="about-text">From building autonomous robots and RC planes to developing ML pipelines and AI-powered systems — I connect hardware intuition with intelligent software to build things that actually work in the real world.</p>
+    <div class="about-stats">
+      <div class="stat">
+        <div class="stat-num">5+</div>
+        <div class="stat-label">ML Projects</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">4+</div>
+        <div class="stat-label">Hardware Projects</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">8+</div>
+        <div class="stat-label">Certificates</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="reveal about-code">
+    <div class="code-header">
+      <div class="dot dot-r"></div>
+      <div class="dot dot-y"></div>
+      <div class="dot dot-g"></div>
+      <span class="code-filename">saim_profile.py</span>
+    </div>
+    <div class="code-body">
+      <div><span class="c-keyword">class</span> <span class="c-func">SaimAnsari</span>:</div>
+      <div>&nbsp;&nbsp;<span class="c-keyword">def</span> <span class="c-func">__init__</span>(self):</div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;self.location = <span class="c-str">"Rawalpindi, Pakistan"</span></div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;self.university = <span class="c-str">"Bahria University"</span></div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;self.degree = <span class="c-str">"BS Robotics & AI"</span></div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;self.focus = [</div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-str">"Machine Learning"</span>,</div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-str">"Deep Learning"</span>,</div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-str">"Computer Vision"</span>,</div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-str">"NLP"</span></div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-str">"Autonomous System"</span>
+      </div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;]</div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;self.hardware = [</div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-str">"Autonomous Robots"</span>,</div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-str">"RC Planes"</span>,</div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-str">"Arduino & ESP32"</span></div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;]</div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;self.goal = <span class="c-str">"AI/ML Engineer"</span></div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;self.certificates = <span class="c-num">8</span></div>
+      <br>
+      <div>&nbsp;&nbsp;<span class="c-keyword">def</span> <span class="c-func">status</span>(self):</div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-comment"># actively building portfolio</span></div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-keyword">return</span> <span class="c-str">"open_to_internships"</span> <span class="c-comment">✓</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-header reveal">
+    <div class="section-label">// 02. Technical Skills</div>
+    <h2 class="section-title">What I Work With</h2>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-card reveal">
+      <div class="skill-icon">🧠</div>
+      <div class="skill-title">Machine Learning</div>
+      <div class="skill-tags">
+        <span class="tag">Scikit-learn</span>
+        <span class="tag">SVM</span>
+        <span class="tag">Decision Trees</span>
+        <span class="tag">Random Forest</span>
+        <span class="tag">KNN</span>
+        <span class="tag">Regression</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-icon">👁️</div>
+      <div class="skill-title">Computer Vision</div>
+      <div class="skill-tags">
+        <span class="tag">OpenCV</span>
+        <span class="tag">MediaPipe</span>
+        <span class="tag">CNN</span>
+        <span class="tag">TensorFlow</span>
+        <span class="tag">Keras</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-icon">📊</div>
+      <div class="skill-title">Data Science</div>
+      <div class="skill-tags">
+        <span class="tag">Pandas</span>
+        <span class="tag">NumPy</span>
+        <span class="tag">Matplotlib</span>
+        <span class="tag">Seaborn</span>
+        <span class="tag">Feature Engineering</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-icon">🚀</div>
+      <div class="skill-title">Deployment</div>
+      <div class="skill-tags">
+        <span class="tag">Streamlit</span>
+        <span class="tag">Joblib</span>
+        <span class="tag">Python</span>
+        <span class="tag">Jupyter</span>
+        <span class="tag">VS Code</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-icon">🤖</div>
+      <div class="skill-title">Robotics & Embedded</div>
+      <div class="skill-tags">
+        <span class="tag">Arduino</span>
+        <span class="tag">ESP32</span>
+        <span class="tag">C++</span>
+        <span class="tag">Sensor Integration</span>
+        <span class="tag">CoppeliaSim</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-icon">📐</div>
+      <div class="skill-title">Mathematics</div>
+      <div class="skill-tags">
+        <span class="tag">Linear Algebra</span>
+        <span class="tag">Calculus</span>
+        <span class="tag">Probability</span>
+        <span class="tag">Statistics</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header reveal">
+    <div class="section-label">// 03. Projects</div>
+    <h2 class="section-title">What I've Built in AI</h2>
+  </div>
+  <div class="projects-grid">
+
+    <div class="project-card reveal">
+      <div class="project-number">Project_01</div>
+      <div class="project-title">Breast Cancer Detection System</div>
+      <div class="project-desc">Full end-to-end ML pipeline classifying tumors as Malignant or Benign. Features separate outlier strategies per distribution type — Z-score for normal, IQR for skewed. Deployed as a live Streamlit web app.</div>
+      <div class="project-meta">
+        <div class="project-tech">
+          <span class="tag">SVM</span><span class="tag">Streamlit</span><span class="tag">Scikit-learn</span>
+        </div>
+        <span class="project-accuracy">96% Accuracy</span>
+      </div>
+      <br>
+      <a href="https://github.com/saim-ansari-tech/breast-cancer-detection" target="_blank" class="project-link">
+        View on GitHub →
+      </a>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-number">Project_02</div>
+      <div class="project-title">Dual Approach Hand Gesture Recognition</div>
+      <div class="project-desc">Real-time gesture recognition using two parallel approaches — CNN on raw images vs Random Forest on 21 MediaPipe keypoints converted to 42-feature vectors. Demonstrates that better features beat complex models.</div>
+      <div class="project-meta">
+        <div class="project-tech">
+          <span class="tag">CNN</span><span class="tag">Random Forest</span><span class="tag">MediaPipe</span><span class="tag">OpenCV</span>
+        </div>
+      </div>
+      <br>
+      <a href="https://github.com/saim-ansari-tech/dual-approach-gesture-recognition" target="_blank" class="project-link">
+        View on GitHub →
+      </a>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-number">Project_03</div>
+      <div class="project-title">Weather Classification</div>
+      <div class="project-desc">Weather classification model using Decision Tree algorithm with complete preprocessing pipeline including feature engineering and hyperparameter tuning.</div>
+      <div class="project-meta">
+        <div class="project-tech">
+          <span class="tag">Decision Tree</span><span class="tag">Scikit-learn</span><span class="tag">Python</span>
+        </div>
+      </div>
+      <br>
+      <a href="https://github.com/saim-ansari-tech" target="_blank" class="project-link">
+        View on GitHub →
+      </a>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-number">Project_04</div>
+      <div class="project-title">Wine Quality Prediction</div>
+      <div class="project-desc">Regression pipeline for predicting wine quality scores from physicochemical features. Includes outlier detection using IQR, feature correlation analysis, and StandardScaling.</div>
+      <div class="project-meta">
+        <div class="project-tech">
+          <span class="tag">Regression</span><span class="tag">Pandas</span><span class="tag">Scikit-learn</span>
+        </div>
+      </div>
+      <br>
+      <a href="https://github.com/saim-ansari-tech" target="_blank" class="project-link">
+        View on GitHub →
+      </a>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-number">Project_05</div>
+      <div class="project-title">AtomCamp Smart LMS</div>
+      <div class="project-desc">AI-powered adaptive Learning Management System built at an AI Hackathon. Features 3 user roles (Student, Instructor, Admin) across 5 pages — personalized course recommendations, adaptive quizzes, AI risk detection, intervention planning, skill gap analysis, dropout prediction, and AI-generated analytics reports.</div>
+      <div class="project-meta">
+        <div class="project-tech">
+          <span class="tag">Gemini API</span><span class="tag">Streamlit</span><span class="tag">Python</span><span class="tag">Prompt Engineering</span><span class="tag">LLM</span>
+        </div>
+        <span class="project-accuracy">AI Hackathon 2025</span>
+      </div>
+      <br>
+      <a href="https://github.com/saim-ansari-tech/Aurex-AI-Hackathon-2026" target="_blank" class="project-link">
+        View on GitHub →
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- HARDWARE PROJECTS -->
+<section id="hardware">
+  <div class="section-header reveal">
+    <div class="section-label">// 05. Hardware Projects</div>
+    <h2 class="section-title">What I've Built (Hardware)</h2>
+  </div>
+  <div class="projects-grid">
+
+    <div class="project-card reveal">
+      <div class="project-images">
+        <img src="hardware_projects_pics/autonomous_river_cleaner_robot.jpeg" alt="Autonomous River Cleaner Robot" class="project-image">
+      </div>
+      <div class="project-number">HW_01</div>
+      <div class="project-title">Autonomous River Cleaner Robot</div>
+      <div class="project-desc">Designed and built a self-operating boat capable of collecting floating waste from rivers. Constructed using polyfoam for buoyancy, Arduino-based control system for autonomous navigation, and integrated sensors for obstacle avoidance. Combines mechanical design, electronics, and programming for sustainable engineering.</div>
+      <div class="project-meta">
+        <div class="project-tech">
+          <span class="tag">Arduino</span><span class="tag">Sensors</span><span class="tag">CAD</span><span class="tag">Circuit Design</span><span class="tag">Mechanical Prototyping</span>
+        </div>
+      </div>
+      <div class="gallery-label">📸 Event</div>
+      <div class="image-gallery">
+        <img src="pics_with_projects/autonomous_R_C.jpeg" alt="Autonomous River Cleaner Robot event photo" class="gallery-thumb" onclick="window.open('pics_with_projects/autonomous_R_C.jpeg','_blank')">
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-images">
+        <img src="hardware_projects_pics/rc_plane.jpeg" alt="High-Wing RC Plane" class="project-image">
+        <img src="hardware_projects_pics/rc_plane2.jpeg" alt="High-Wing RC Plane Alternate" class="project-image">
+      </div>
+      <div class="project-number">HW_02</div>
+      <div class="project-title">High-Wing RC Plane — NDBFC at GIKI</div>
+      <div class="project-desc">Designed and built a high-wing RC plane for the National Design Build and Fly Competition at GIKI. Frame constructed with Depron foam board, powered by a 1400kV brushless motor and 2800mAh LiPo battery. Achieved 200g payload capacity and 12-minute flight time.</div>
+      <div class="project-meta">
+        <div class="project-tech">
+          <span class="tag">Aerodynamics</span><span class="tag">Brushless Motor</span><span class="tag">LiPo</span><span class="tag">Servo</span><span class="tag">Depron Foam</span>
+        </div>
+      </div>
+      <div class="gallery-label">📸 At GIKI</div>
+      <div class="image-gallery">
+        <img src="pics_with_projects/falcon_ops1.jpeg" alt="High-Wing RC Plane photo 1" class="gallery-thumb" onclick="window.open('pics_with_projects/falcon_ops1.jpeg','_blank')">
+        <img src="pics_with_projects/falcon_ops2.jpeg" alt="High-Wing RC Plane photo 2" class="gallery-thumb" onclick="window.open('pics_with_projects/falcon_ops2.jpeg','_blank')">
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-images">
+        <img src="hardware_projects_pics/autonomous_ballon_popping_robot.jpeg" alt="Autonomous Balloon Popping Robot" class="project-image">
+      </div>
+      <div class="project-number">HW_03</div>
+      <div class="project-title">Autonomous Balloon Popping Robot</div>
+      <div class="project-desc">Built an autonomous robot using a 2-DOF manipulator to detect and pop red balloons. Integrated an ultrasonic sensor for obstacle avoidance and a color sensor for balloon detection.</div>
+      <div class="project-meta">
+        <div class="project-tech">
+          <span class="tag">Arduino</span><span class="tag">Ultrasonic Sensor</span><span class="tag">Color Sensor</span><span class="tag">2-DOF Manipulator</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-images">
+        <img src="hardware_projects_pics/sumo_robot1.jpeg" alt="Sumo Robot" class="project-image">
+        <img src="hardware_projects_pics/sumo_robot2.jpeg" alt="Sumo Robot Alternate" class="project-image">
+      </div>
+      <div class="project-number">HW_04</div>
+      <div class="project-title">Sumo Robot — AI InnoFest 2025</div>
+      <div class="project-desc">Built a sumo robot from scratch — custom metal chassis, 2 DC planetary gear motors with bevel gear drive system, dual IBT-2 H-bridge motor drivers, and Arduino Nano control with Flysky RC transmitter. Motor driver failed on event day due to thermal overload — learned real-world lessons in torque, gearing, and thermal management.</div>
+      <div class="project-meta">
+        <div class="project-tech">
+          <span class="tag">Arduino Nano</span><span class="tag">DC Motors</span><span class="tag">Bevel Gears</span><span class="tag">IBT-2</span><span class="tag">RC Control</span><span class="tag">Metal Fabrication</span>
+        </div>
+        <span class="project-accuracy">Battle-tested ⚔️</span>
+      </div>
+      <div class="gallery-label">📸 Air University</div>
+      <div class="image-gallery">
+        <img src="pics_with_projects/air_tech.jpeg" alt="Sumo Robot Air University photo" class="gallery-thumb" onclick="window.open('pics_with_projects/air_tech.jpeg','_blank')">
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CERTIFICATES -->
+<section id="certificates">
+  <div class="section-header reveal">
+    <div class="section-label">// 04. Certificates & Achievements</div>
+    <h2 class="section-title">Milestones & Recognition</h2>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-card reveal">
+      <div class="skill-title" style="margin-bottom: 0.5rem;">AI Hackathon — AtomCamp Smart LMS</div>
+      <div class="skill-icon" style="font-size: 0.9rem; margin-bottom: 0.4rem; color: var(--cyan);">2025</div>
+      <div style="font-size: 0.82rem; color: var(--muted); line-height: 1.6; margin-bottom: 0.8rem;">Built adaptive LMS with Gemini API</div>
+      <span class="tag" style="background: var(--cyan); color: var(--bg); border-color: var(--cyan);">Participant</span>
+      <div class="cert-actions">
+        <a href="certificates/hackathon" onclick="window.open('certificates\\hackathon.jpeg', '_blank'); return false;" class="cert-btn">View Certificate</a>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-title" style="margin-bottom: 0.5rem;">NERC 2024 Ambassador</div>
+      <div class="skill-icon" style="font-size: 0.9rem; margin-bottom: 0.4rem; color: var(--cyan);">2024</div>
+      <div style="font-size: 0.82rem; color: var(--muted); line-height: 1.6; margin-bottom: 0.8rem;">Represented as ambassador at national robotics event</div>
+      <span class="tag" style="background: var(--cyan); color: var(--bg); border-color: var(--cyan);">Ambassador</span>
+      <div class="cert-actions">
+        <a href="certificates/NERC" onclick="window.open('certificates\\NERC.jpeg', '_blank'); return false;" class="cert-btn">View Certificate</a>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-title" style="margin-bottom: 0.5rem;">Maestry Box Competition</div>
+      <div class="skill-icon" style="font-size: 0.9rem; margin-bottom: 0.4rem; color: var(--cyan);">ICS</div>
+      <div style="font-size: 0.82rem; color: var(--muted); line-height: 1.6; margin-bottom: 0.8rem;">Built automatic train track door system — 3rd Position, PKR 5,000 prize</div>
+      <span class="tag" style="background: var(--orange); color: var(--bg); border-color: var(--orange);">3rd Place 🏆</span>
+      <div class="cert-actions">
+        <a href="certificates/pgc_lahore" onclick="window.open('certificates\\pgc_lahore.jpeg', '_blank'); return false;" class="cert-btn">View Certificate</a>
+        <a href="certificates/pgc_lahore_sheild" onclick="window.open('certificates\\pgc_lahore_sheild.jpeg', '_blank'); return false;" class="cert-btn">View Shield</a>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-title" style="margin-bottom: 0.5rem;">PGC Bahawalpur — Arduino Project</div>
+      <div class="skill-icon" style="font-size: 0.9rem; margin-bottom: 0.4rem; color: var(--cyan);">ICS</div>
+      <div style="font-size: 0.82rem; color: var(--muted); line-height: 1.6; margin-bottom: 0.8rem;">Built automatic car parking system with traffic light indicators using Arduino</div>
+      <span class="tag" style="background: var(--cyan); color: var(--bg); border-color: var(--cyan);">Participant</span>
+      <div class="cert-actions">
+        <a href="certificates/pgc_bwp" onclick="window.open('certificates\\pgc_bwp.jpeg', '_blank'); return false;" class="cert-btn">View Certificate</a>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-title" style="margin-bottom: 0.5rem;">NDBFC — GIKI University</div>
+      <div class="skill-icon" style="font-size: 0.9rem; margin-bottom: 0.4rem; color: var(--cyan);">ICS</div>
+      <div style="font-size: 0.82rem; color: var(--muted); line-height: 1.6; margin-bottom: 0.8rem;">Built RC trainer plane as part of a 5-member team for National Design Build and Fly Competition</div>
+      <span class="tag" style="background: var(--cyan); color: var(--bg); border-color: var(--cyan);">Participant</span>
+      <div class="cert-actions">
+        <a href="certificates/NDBFC" onclick="window.open('certificates\\NDBFC.jpeg', '_blank'); return false;" class="cert-btn">View Certificate</a>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-title" style="margin-bottom: 0.5rem;">BizzTech 2024</div>
+      <div class="skill-icon" style="font-size: 0.9rem; margin-bottom: 0.4rem; color: var(--cyan);">2024</div>
+      <div style="font-size: 0.82rem; color: var(--muted); line-height: 1.6; margin-bottom: 0.8rem;">Exhibited RC trainer plane at technology exhibition, Margalla Grande Islamabad</div>
+      <span class="tag" style="background: var(--green); color: var(--bg); border-color: var(--green);">Exhibitor</span>
+      <div class="cert-actions">
+        <a href="certificates/BizzTech" onclick="window.open('certificates\\BizzTech.jpeg', '_blank'); return false;" class="cert-btn">View Certificate</a>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-title" style="margin-bottom: 0.5rem;">Tech Spark Season 1</div>
+      <div class="skill-icon" style="font-size: 0.9rem; margin-bottom: 0.4rem; color: var(--cyan);">ICS/2024</div>
+      <div style="font-size: 0.82rem; color: var(--muted); line-height: 1.6; margin-bottom: 0.8rem;">Exhibited project at International Islamic University Islamabad tech exhibition</div>
+      <span class="tag" style="background: var(--green); color: var(--bg); border-color: var(--green);">Exhibitor</span>
+      <div class="cert-actions">
+        <a href="certificates/TechSpark" onclick="window.open('certificates\\TechSpark.jpeg', '_blank'); return false;" class="cert-btn">View Certificate</a>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-title" style="margin-bottom: 0.5rem;">AI InnoFest 2025 — Bahria University</div>
+      <div class="skill-icon" style="font-size: 0.9rem; margin-bottom: 0.4rem; color: var(--cyan);">2025</div>
+      <div style="font-size: 0.82rem; color: var(--muted); line-height: 1.6; margin-bottom: 0.8rem;">Built sumo robot as part of a 3-member team, organized by Center of Excellence</div>
+      <span class="tag" style="background: var(--cyan); color: var(--bg); border-color: var(--cyan);">Participant</span>
+      <div class="cert-actions">
+        <a href="certificates/Innofest" onclick="window.open('certificates\\Innofest.jpeg', '_blank'); return false;" class="cert-btn">View Certificate</a>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-title" style="margin-bottom: 0.5rem;">Namal Tech Expo 2025 — Namal University Mianwali</div>
+      <div class="skill-icon" style="font-size: 0.9rem; margin-bottom: 0.4rem; color: var(--cyan);">2025</div>
+      <div style="font-size: 0.82rem; color: var(--muted); line-height: 1.6; margin-bottom: 0.8rem;">Build Sumo Robot</div>
+      <span class="tag" style="background: var(--cyan); color: var(--bg); border-color: var(--cyan);">Participant</span>
+      <div class="cert-actions">
+        <a href="certificates/namal_tech" onclick="window.open('certificates\\namal_tech.jpeg', '_blank'); return false;" class="cert-btn">View Certificate</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHOTO GALLERY -->
+<section id="photo-gallery">
+  <div class="section-header reveal">
+    <div class="section-label">// Photo Gallery</div>
+    <h2 class="section-title">Photo Gallery</h2>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-card reveal">
+      <div class="gallery-label">📸 Event</div>
+      <div class="image-gallery">
+        <img src="pics_with_projects/maestry_box_event.jpeg" alt="Maestry Box event photo" class="gallery-thumb" onclick="window.open('pics_with_projects/maestry_box_event.jpeg','_blank')">
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="gallery-label">📸 Exhibition</div>
+      <div class="image-gallery">
+        <img src="pics_with_projects/bizztech1.jpeg" alt="BizzTech exhibition 1" class="gallery-thumb" onclick="window.open('pics_with_projects/bizztech1.jpeg','_blank')">
+        <img src="pics_with_projects/bizztech2.jpeg" alt="BizzTech exhibition 2" class="gallery-thumb" onclick="window.open('pics_with_projects/bizztech2.jpeg','_blank')">
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="gallery-label">📸 Event</div>
+      <div class="image-gallery">
+        <img src="pics_with_projects/autonomous_R_C.jpeg" alt="Autonomous River Cleaner Robot event photo" class="gallery-thumb" onclick="window.open('pics_with_projects/autonomous_R_C.jpeg','_blank')">
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="gallery-label">📸 At GIKI</div>
+      <div class="image-gallery">
+        <img src="pics_with_projects/falcon_ops1.jpeg" alt="High-Wing RC Plane photo 1" class="gallery-thumb" onclick="window.open('pics_with_projects/falcon_ops1.jpeg','_blank')">
+        <img src="pics_with_projects/falcon_ops2.jpeg" alt="High-Wing RC Plane photo 2" class="gallery-thumb" onclick="window.open('pics_with_projects/falcon_ops2.jpeg','_blank')">
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="gallery-label">📸 Air University</div>
+      <div class="image-gallery">
+        <img src="pics_with_projects/air_tech.jpeg" alt="Sumo Robot Air University photo" class="gallery-thumb" onclick="window.open('pics_with_projects/air_tech.jpeg','_blank')">
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="gallery-label">📸 Seminar</div>
+      <div class="image-gallery">
+        <img src="pics_with_projects/nerc_sem1.jpeg" alt="NERC seminar photo 1" class="gallery-thumb" onclick="window.open('pics_with_projects/nerc_sem1.jpeg','_blank')">
+        <img src="pics_with_projects/nerc_sem2.jpeg" alt="NERC seminar photo 2" class="gallery-thumb" onclick="window.open('pics_with_projects/nerc_sem2.jpeg','_blank')">
+        <img src="pics_with_projects/nerc_sem3.jpeg" alt="NERC seminar photo 3" class="gallery-thumb" onclick="window.open('pics_with_projects/nerc_sem3.jpeg','_blank')">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-header reveal">
+    <div class="section-label">// 06. Experience</div>
+    <h2 class="section-title">Where I've Worked</h2>
+  </div>
+  <div class="exp-timeline">
+    <div class="exp-item reveal">
+      <div class="exp-date">May 2026 — Present</div>
+      <div class="exp-title">Deputy Director of IEEE RAS Technical Team</div>
+      <div class="exp-company">Bahria University Islamabad</div>
+      <div class="exp-desc">Leading technical initiatives and coordinating IEEE Robotics and Automation Society activities, fostering innovation and collaboration among team members on cutting-edge robotics projects.</div>
+    </div>
+    <div class="exp-item reveal">
+      <div class="exp-date">2024 — 1 Month</div>
+      <div class="exp-title">Customer Support Representative</div>
+      <div class="exp-company">Pay Per Call Solution · Islamabad, Pakistan</div>
+      <div class="exp-desc">Handled inbound and outbound customer interactions in a fast-paced environment. Developed strong communication, problem-solving, and multitasking skills managing simultaneous client engagements.</div>
+    </div>
+    <div class="exp-item reveal">
+      <div class="exp-date">2023 — Present</div>
+      <div class="exp-title">BS Robotics & Intelligent Systems</div>
+      <div class="exp-company">Bahria University Islamabad · 5th Semester</div>
+      <div class="exp-desc">Pursuing engineering degree with shifted focus toward AI, ML, and Deep Learning. Building portfolio of production-quality ML projects while studying intelligent systems fundamentals.</div>
+    </div>
+    <div class="exp-item reveal">
+      <div class="exp-date">Jun — 13th July 2024</div>
+      <div class="exp-title">Ambassador of National Engineering Robotics Contest (NERC) 2024</div>
+      <div class="exp-company">National Engineering Robotics Contest · Islamabad, Pakistan</div>
+      <div class="exp-desc">Represented the contest as an ambassador, supporting outreach and event coordination. Certificate of participation is available in the project folder.</div>
+      <div class="gallery-label">📸 Seminar</div>
+      <div class="image-gallery">
+        <img src="pics_with_projects/nerc_sem1.jpeg" alt="NERC seminar photo 1" class="gallery-thumb" onclick="window.open('pics_with_projects/nerc_sem1.jpeg','_blank')">
+        <img src="pics_with_projects/nerc_sem2.jpeg" alt="NERC seminar photo 2" class="gallery-thumb" onclick="window.open('pics_with_projects/nerc_sem2.jpeg','_blank')">
+        <img src="pics_with_projects/nerc_sem3.jpeg" alt="NERC seminar photo 3" class="gallery-thumb" onclick="window.open('pics_with_projects/nerc_sem3.jpeg','_blank')">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner reveal">
+    <div class="section-label">// 07. Contact</div>
+    <h2 class="contact-heading">Let's <span>Connect</span></h2>
+    <p class="contact-text">I'm actively looking for internship opportunities in AI/ML. Whether you have a project in mind, a position available, or just want to talk tech — my inbox is open.</p>
+    <div class="contact-links">
+      <a href="mailto:saim_ansari2005@outlook.com" class="contact-link">
+        ✉ Email Me
+      </a>
+      <a href="https://github.com/saim-ansari-tech" target="_blank" class="contact-link">
+        ⌥ GitHub
+      </a>
+      <a href="https://www.linkedin.com/in/saim-ansari-990620283" target="_blank" class="contact-link">
+        ↗ LinkedIn
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>Muhammad Saim Ansari © 2025</span>
+  <span style="color:var(--cyan)">Built with HTML · CSS · JS</span>
+</footer>
+
+<script>
+  // CURSOR
+  const cursor = document.getElementById('cursor');
+  const ring   = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  function animCursor() {
+    cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+    rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+    requestAnimationFrame(animCursor);
+  }
+  animCursor();
+
+  // TYPED TEXT
+  const phrases = [
+    "Scikit-learn  |  TensorFlow  |  OpenCV",
+    "SVM  |  CNN  |  Decision Trees",
+    "Streamlit  |  Pandas  |  NumPy",
+    "Arduino  |  ESP32  |  MediaPipe"
+  ];
+  let pi = 0, ci = 0, deleting = false;
+  const el = document.getElementById('typed');
+  function type() {
+    const phrase = phrases[pi];
+    if (!deleting) {
+      el.textContent = phrase.slice(0, ++ci);
+      if (ci === phrase.length) { deleting = true; setTimeout(type, 1800); return; }
+    } else {
+      el.textContent = phrase.slice(0, --ci);
+      if (ci === 0) { deleting = false; pi = (pi + 1) % phrases.length; }
+    }
+    setTimeout(type, deleting ? 35 : 60);
+  }
+  setTimeout(type, 1500);
+
+  // SCROLL REVEAL
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  reveals.forEach(r => observer.observe(r));
+</script>
+</body>
+</html>
